@@ -30,7 +30,7 @@ function createQuestions() {
       message: "What would you like to do?",
       name: "choice",
       type: "list",
-      choices: ["View All Employees", "Add Employees", "Remove Employees", "Update Employee Roles", "View All Roles", "Add Roles", "Remove Roles", "View All Departments", "Add Departments", "Remove Departments", "Exit"],
+      choices: ["View All Employees", "Add Employees", "Update Employees Roles", "View All Roles", "Add Roles", "View All Departments", "Add Departments", "Exit"],
     }
   ]).then(function (answer) {
     switch (answer.choice) {
@@ -52,14 +52,8 @@ function createQuestions() {
       case "Add departments":
         addDepartment();
         break;
-      case "Remove Employees":
-        removeEmployees();
-        break;
-      case "Remove Roles":
-        removeRoles();
-        break;
-      case "Remove Departments":
-        removeDepartments();
+      case "Update Employees Roles":
+        updateRole();
         break;
       case "Exit":
         console.log("Goodbye!");
@@ -118,6 +112,34 @@ function addEmployees() {
         if (err) console.log(err);
         console.log("Success!");
         createQuestions();
+      }
+    )
+  })
+}
+
+function addRole() {
+  inquirer.prompt([
+    {
+      name: "title",
+      message: "Enter the role you would like to add.",
+      type: "input",
+    },
+    {
+      name: "salary",
+      message: "Enter the annual salary of the new role.",
+      type: "input",
+    },
+    {
+      name:"departmentID",
+      message: "Enter the department id.",
+      type: "input",
+    },
+  ]).then((answers) => {
+    connection.query(`INSERT INTO roles(title, salary, department_id) VALUES (?, ?, ?)`,
+    [answers.title, answers.salary, answers.departmentID],
+    (err, result) => {
+    console.log("Success!");
+    createQuestions(); 
       }
     )
   })
