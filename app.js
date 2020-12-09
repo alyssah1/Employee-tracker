@@ -24,13 +24,50 @@ var connection = mysql.createConnection({
   });
 
   function createQuestions() {
+    console.log("Welcome to the Employee Tracker!")
     inquirer.prompt([
         {
-            
+            message: "What would you like to do?",
+            name: "choice",
+            type: "list",
+            choices: ["View All Employees", "Add Employees", "Remove Employees", "Update Employee Roles", "View All Roles", "Add Roles", "Remove Roles", "View All Departments", "Add Departments", "Remove Departments", "Exit"],
         }
+      ]).then(function(answer) {
+        switch (answer.choice) {
+          case "View All Employees":
+          allEmployees();
+          break;
+          case "View All Departments":
+          allDepartments();
+          break;
+          case "View All Roles":
+          allRoles();
+          break;
+          case "Add Employees":
+          addEmployees();
+          break;
+          case "Add Roles":
+          addRole();
+          break;
+          case "Add departments":
+          addDepartment();
+          break;
+          case "Remove Employees":
+          removeEmployees();
+          break;
+          case "Remove Roles":
+          removeRoles();
+          break;
+          case "Remove Departments":
+          removeDepartments();
+          break;
+          case "Exit":
+          connection.end();
+          break;                    
+        }
+      });
+}
 
-
-
-    ])
-
-  }
+function allEmployees() {
+  
+}
