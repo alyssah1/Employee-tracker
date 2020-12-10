@@ -14,7 +14,7 @@ Update employee roles
 
 
 
-# Quesitons
+# Questions
 If you have any questions please use the contacts down below:
 
 #### Email address: alyssa.hollowell2@gmail.com
