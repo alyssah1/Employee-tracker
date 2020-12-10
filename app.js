@@ -64,7 +64,7 @@ function createQuestions() {
 }
 
 function allEmployees() {
-  connection.query(`SELECT * FROM employees`, (err, result) => {
+  connection.query(`SELECT employees.id, first_name, last_name, roles.title, roles.salary FROM employees INNER JOIN roles ON role_id = roles.id`, (err, result) => {
     if (err) console.log(err);
     console.table(result);
     createQuestions();
@@ -81,7 +81,7 @@ function allDepartments() {
 
 
 function allRoles() {
-  connection.query(`SELECT * FROM roles`, (err, result) => {
+  connection.query(`SELECT roles.id, title, salary, departments.name FROM roles INNER JOIN departments ON department_id = departments.id`, (err, result) => {
     if (err) console.log(err);
     console.table(result);
     createQuestions();
@@ -105,9 +105,15 @@ function addEmployees() {
       message: "What is your role id?",
       type: "input",
     },
+    {
+      name: "role",
+      message: "What role would you like to add?",
+      type: "list",
+      choices: ["Sales Lead", "Software engineer", "Accountant", "Lawyer"],
+    },
   ]).then((answers) => {
     connection.query(`INSERT INTO employees (first_name, last_name, role_id) VALUES (?, ?, ?)`,
-      [answers.firstName, answers.lastName, answers.roleID],
+      [answers.firstName, answers.lastName, answers.roleID, answers.role],
       (err, result) => {
         if (err) console.log(err);
         console.log("Success!");
@@ -130,17 +136,35 @@ function addRole() {
       type: "input",
     },
     {
-      name:"departmentID",
+      name: "departmentID",
       message: "Enter the department id.",
       type: "input",
     },
   ]).then((answers) => {
     connection.query(`INSERT INTO roles(title, salary, department_id) VALUES (?, ?, ?)`,
-    [answers.title, answers.salary, answers.departmentID],
-    (err, result) => {
-    console.log("Success!");
-    createQuestions(); 
+      [answers.title, answers.salary, answers.departmentID],
+      (err, result) => {
+        console.log("Success!");
+        createQuestions();
       }
     )
   })
 }
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      name: "name",
+      message: "What department would you like to add?",
+      type: "input",
+    },
+  ]).then((answers) => {
+    connection.query(`INSERT INTO departments SET (?)`),
+      [answers.name],
+      (err, result) => {
+        console.log("Success!");
+        createQuestions();
+      }
+  })
+}
+
