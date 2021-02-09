@@ -3,7 +3,7 @@
 # Created by Alyssa Hollowell
 
 # Description 
-This application is a command-line application that at a minimum allows the user to:
+This application is a command-line application that allows the user to:
 
 Add departments, roles, employees
 
