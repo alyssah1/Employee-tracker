@@ -5,7 +5,9 @@
 # Description 
 This application is a command-line application that at a minimum allows the user to:
 Add departments, roles, employees
+
 View departments, roles, employees
+and 
 Update employee roles
 
 # Helpful links
